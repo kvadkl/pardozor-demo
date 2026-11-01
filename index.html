@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#0c1423">
   <title>ПарДозор — процесс под контролем</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="gallery.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -56,13 +57,22 @@
     </section>
 
     <section class="section shell" id="evidence">
-      <div class="section-heading"><span class="eyebrow">Кадры стендового теста</span><h2>Интерфейс в реальной работе</h2><p>Это не рекламные макеты. Снимки сделаны в ходе испытания устройства.</p></div>
+      <div class="section-heading"><span class="eyebrow">Кадры стендового теста</span><h2>Интерфейс в реальной работе</h2><p>Это не рекламные макеты. Снимки сделаны в ходе испытания устройства. Нажмите на кадр, чтобы рассмотреть его крупно.</p></div>
       <div class="capture-grid">
-        <figure><img loading="lazy" src="assets/interface-self-reflux.png" alt="Этап работы на себя и таймер" width="1712" height="1349"><figcaption><span>01 / Стабилизация</span>Текущий и следующий этап, таймер работы на себя.</figcaption></figure>
-        <figure><img loading="lazy" src="assets/interface-body.png" alt="Отбор тела со скоростью и оценкой времени до цели" width="1446" height="825"><figcaption><span>02 / Отбор</span>Объём, скорость и температуры на одном экране.</figcaption></figure>
-        <figure><img loading="lazy" src="assets/interface-alarm.png" alt="Тревога по температуре и достигнутая цель по объёму" width="1731" height="1289"><figcaption><span>03 / Внимание</span>Причина тревоги видна рядом с показаниями.</figcaption></figure>
+        <figure><button class="capture-open" type="button" aria-label="Увеличить кадр: стабилизация"><img loading="lazy" src="assets/interface-self-reflux.png" alt="Этап работы на себя и таймер" width="1712" height="1349"><span class="capture-hint" aria-hidden="true">↗ Увеличить</span></button><figcaption><span>01 / Стабилизация</span>Текущий и следующий этап, таймер работы на себя.</figcaption></figure>
+        <figure><button class="capture-open" type="button" aria-label="Увеличить кадр: отбор"><img loading="lazy" src="assets/interface-body.png" alt="Отбор тела со скоростью и оценкой времени до цели" width="1446" height="825"><span class="capture-hint" aria-hidden="true">↗ Увеличить</span></button><figcaption><span>02 / Отбор</span>Объём, скорость и температуры на одном экране.</figcaption></figure>
+        <figure><button class="capture-open" type="button" aria-label="Увеличить кадр: тревога"><img loading="lazy" src="assets/interface-alarm.png" alt="Тревога по температуре и достигнутая цель по объёму" width="1731" height="1289"><span class="capture-hint" aria-hidden="true">↗ Увеличить</span></button><figcaption><span>03 / Внимание</span>Причина тревоги видна рядом с показаниями.</figcaption></figure>
+        <figure><button class="capture-open" type="button" aria-label="Увеличить кадр: завершение"><img loading="lazy" src="assets/interface-finish.png" alt="Завершение сеанса, состояние температур и весов" width="1699" height="1081"><span class="capture-hint" aria-hidden="true">↗ Увеличить</span></button><figcaption><span>04 / Завершение</span>Итоговый этап и состояние контроля остаются на экране.</figcaption></figure>
       </div>
     </section>
+
+    <dialog id="capture-dialog" class="capture-dialog" aria-label="Просмотр кадров стендового теста">
+      <div class="capture-dialog-layout">
+        <div class="capture-dialog-toolbar"><span id="capture-counter" aria-live="polite">Кадр 1 из 4</span><div class="capture-dialog-actions"><button id="capture-zoom" type="button" aria-label="Показать изображение в исходном размере">Масштаб 1:1</button><a id="capture-original" href="#" target="_blank" rel="noopener noreferrer">Открыть оригинал ↗</a><button id="capture-close" type="button" aria-label="Закрыть просмотр">✕</button></div></div>
+        <div class="capture-dialog-main"><button id="capture-prev" class="capture-arrow" type="button" aria-label="Предыдущий кадр">‹</button><div id="capture-viewport" class="capture-viewport"><img id="capture-large" alt=""></div><button id="capture-next" class="capture-arrow" type="button" aria-label="Следующий кадр">›</button></div>
+        <div id="capture-caption" class="capture-dialog-caption"></div>
+      </div>
+    </dialog>
 
     <section class="section guide-section" id="guide"><div class="shell guide-grid"><div><span class="eyebrow">Краткая инструкция</span><h2>Что увидит оператор</h2><p>Начать знакомство можно без устройства: в демо воспроизводятся показания одного настоящего сеанса.</p><a class="button primary" href="demo.html">Перейти к демо ↗</a></div><div class="guide-steps"><div><span>1</span><p><strong>Выберите момент сеанса</strong>Перемотайте запись или перейдите сразу к нужному этапу.</p></div><div><span>2</span><p><strong>Следите за показаниями</strong>Сравните температуры, вес, объём и изменения на графике.</p></div><div><span>3</span><p><strong>Посмотрите события</strong>Перейдите к достижению цели или температурной тревоге и оцените, как это показано оператору.</p></div></div></div></section>
 
