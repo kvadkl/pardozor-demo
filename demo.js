@@ -93,15 +93,15 @@ function renderChart(index) {
 }
 function render() {
   if (!data) return;
-  const index = nearestIndex(time), sample = samples[index], event = latestEvent(sample.t);
+  const index = nearestIndex(time), sample = samples[index], event = latestEvent(time);
   const stage = sample.stage, bounds = stageBounds[stage], goal = stage === 3 ? 150 : stage === 4 ? 1200 : null;
   const volumeValid = goal != null && sample.volume != null && sample.volume >= -2 && sample.volume < goal * 1.5;
   const volume = volumeValid ? Math.max(0, Math.round(sample.volume)) : null;
   const mass = volumeValid && sample.mass != null ? Math.max(0, Math.round(sample.mass)) : null;
   const rate = volumeValid ? rateFor(index) : null;
-  const isAlarm = event?.code === "ALARM_ACTIVATED" && sample.t - event.t < 180;
-  $("clock").textContent = formatClock(sample.t);
-  $("seek").value = sample.t;
+  const isAlarm = event?.code === "ALARM_ACTIVATED" && time - event.t < 180;
+  $("clock").textContent = formatClock(time);
+  $("seek").value = time;
   $("stage").textContent = data.stages[stage];
   $("stage-note").textContent = stageCopy[stage];
   $("stage-time").textContent = formatShort(sample.t - bounds.start);
