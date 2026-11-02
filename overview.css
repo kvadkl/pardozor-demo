@@ -1,0 +1,47 @@
+.overview-page::before{display:none}
+.overview-page{background:#101827;color:#edf3fa}
+.overview-page .site-header{height:70px}
+.overview-page .site-nav a{color:#bdccdb}
+.overview-page .site-nav a:hover,.overview-page a:focus-visible{color:#85d7ff}
+.overview-page h1,.overview-page h2,.overview-page h3{letter-spacing:-.035em;line-height:1.15}
+.overview-label{display:block;color:#78caff;font-size:12px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;margin-bottom:15px}
+.overview-hero{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);gap:48px;align-items:center;padding-block:70px;border-bottom:1px solid #2b394b}
+.overview-hero h1{font-size:clamp(42px,5vw,64px);margin:0 0 18px}
+.overview-lead{font-size:19px;line-height:1.62;color:#d6e1ee;max-width:620px}
+.overview-quiet,.overview-note{font-size:14px;color:#99aabb}
+.overview-links{display:flex;flex-wrap:wrap;gap:12px 25px;margin-top:27px;font-weight:700;font-size:14px;color:#82d0f5}
+.overview-links a:hover,.overview-processes a:hover,.overview-test a:hover{text-decoration:underline}
+.overview-hero-shot{min-width:0;margin:0;border:1px solid #3b5169;border-radius:12px;background:#192537;overflow:hidden}
+.overview-hero-shot img{display:block;width:100%;height:auto;max-height:470px;object-fit:contain;object-position:top}
+.overview-hero-shot figcaption{padding:12px 16px;color:#a9b9c9;font-size:12px;border-top:1px solid #2b3b4e}
+.overview-section{padding-block:76px}
+.overview-muted{background:#152132;border-block:1px solid #29384a}
+.overview-heading{max-width:800px;margin-bottom:27px}
+.overview-heading h2,.overview-interface h2,.overview-limits h2{font-size:clamp(28px,3vw,40px);margin:0 0 12px}
+.overview-heading p,.overview-interface p,.overview-limits p{color:#adbdce;font-size:16px;line-height:1.65;margin:0}
+.overview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.overview-card{padding:25px 27px;border:1px solid #34475b;border-radius:12px;background:#1d2a3b}
+.overview-num{color:#78caff;font-size:12px;font-weight:750}
+.overview-card h3{font-size:21px;margin:8px 0 10px}
+.overview-card p,.overview-processes p{color:#b7c5d4;font-size:15px;line-height:1.6;margin:0}
+.overview-processes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid #3a4c60;border-radius:12px;overflow:hidden}
+.overview-processes article{padding:23px;border-right:1px solid #3a4c60;background:#1d2a3b}
+.overview-processes article:last-child{border-right:0}
+.overview-processes b{display:block;color:#eaf4fc;font-size:17px;margin-bottom:11px}
+.overview-processes a,.overview-test a{color:#8bd4f8;font-weight:700}
+.overview-note{margin:18px 0 0}
+.overview-interface{display:grid;grid-template-columns:1fr 1fr;gap:65px}
+.overview-interface p+p{margin-top:15px}
+.overview-interface-list{border-top:1px solid #3a4c60}
+.overview-interface-list>div{display:grid;grid-template-columns:120px 1fr;gap:15px;padding:18px 0;border-bottom:1px solid #3a4c60;font-size:14px}
+.overview-interface-list strong{color:#eaf4fc}.overview-interface-list span{color:#aebfd0}
+.overview-test>span{font-size:12px;color:#78caff}
+.overview-test a{display:inline-block;margin-top:18px;font-size:14px}
+.overview-page .capture-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.overview-page .capture-grid img{height:auto;aspect-ratio:16/9;object-fit:contain;background:#111b2a}
+.overview-page .capture-grid figcaption{min-height:0}
+.overview-limits{border-top:1px solid #2b394b}
+.overview-limits p{max-width:890px}
+[hidden]{display:none!important}
+@media(max-width:1050px){.overview-hero{grid-template-columns:1fr;gap:27px}.overview-processes{grid-template-columns:repeat(2,minmax(0,1fr))}.overview-processes article:nth-child(2){border-right:0}.overview-processes article:nth-child(-n+2){border-bottom:1px solid #3a4c60}}
+@media(max-width:760px){.overview-page .site-nav a:not(:last-child){display:none}.overview-hero{padding-block:43px}.overview-lead{font-size:16px}.overview-section{padding-block:52px}.overview-grid,.overview-interface,.overview-page .capture-grid{grid-template-columns:1fr}.overview-interface{gap:28px}.overview-processes{grid-template-columns:1fr}.overview-processes article{border-right:0!important;border-bottom:1px solid #3a4c60}.overview-processes article:last-child{border-bottom:0}.overview-card{padding:21px}.overview-page .capture-grid img{aspect-ratio:auto;max-height:480px}}
