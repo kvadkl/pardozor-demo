@@ -6,6 +6,7 @@
 @media(max-width:410px){.hero-actions{display:grid}.screen-top{font-size:9px}.screen-live{display:none}.sensor-bottom{font-size:9px}.chapter-row button{font-size:11px;padding:6px 9px}}
 
 /* Full-size test-stand gallery */
+.brand-icon{display:block;flex:none;width:33px;height:33px;border-radius:9px}
 .capture-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .capture-grid figure{transition:border-color .2s,transform .2s}
 .capture-grid figure:hover{border-color:#6bbdec;transform:translateY(-2px)}
