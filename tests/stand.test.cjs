@@ -57,7 +57,7 @@ advanceTime(4);
 assert.equal(snapshot().stage, 1, "65 °C in boiler should advance first run");
 element("next-stage").trigger("click");
 assert.equal(snapshot().stage, 2, "operator can start raw spirit stage");
-advanceTime(18);
+advanceTime(14);
 assert.equal(snapshot().stage, 3, "98 °C in boiler should finish first run");
 
 element("scenario").value = "liquid";

@@ -5,10 +5,10 @@
   const colors = ["#50c4ff", "#b574f0", "#50d2a1", "#ef9a47"];
   // Selected measured points (seconds, then four temperatures in °C). Between
   // points the stand interpolates; operator actions and alarms remain simulated.
-  // The first 8 minutes of the first run included sensor connection, so its
-  // first complete reading is used as the initial virtual reading.
+  // The first 8 minutes of the first run included sensor connection; the
+  // virtual clock starts at its first complete reading (source time 483 s).
   const firstRunTemperatures = [
-    [0, 24.3, 26.23, 21.06, 26.24], [483, 24.3, 26.23, 21.06, 26.24],
+    [483, 24.3, 26.23, 21.06, 26.24],
     [903, 28.77, 37.42, 21.88, 25.3], [1504, 33.56, 49.51, 22.59, 25.59],
     [1804, 35.24, 56.75, 23.31, 25.75], [2194, 36.94, 64.45, 24.15, 25.98],
     [2489, 38.06, 74.39, 18.8, 26.11], [2700, 38.75, 83.03, 17.38, 26.18],
@@ -43,6 +43,7 @@
       name: "Первый перегон",
       description: "Температуры по испытанию 12.10.2026: сначала нагревается куб, затем резко поднимается пар. Переходы при 65 и 98 °C в кубе; к отбору сырца переходит оператор.",
       profile: firstRunTemperatures,
+      profileOffset: 483,
       stages: [
         {name: "Нагрев", policy: "closed"},
         {name: "Подготовить охлаждение", policy: "closed", trigger: {sensor: 1, above: 65}},
@@ -78,6 +79,7 @@
       name: "Наблюдение",
       description: "Четыре температуры по первому перегону 12.10.2026, но без автоматических переходов и открытия клапана. Опорные значения и тревоги задаются в стенде.",
       profile: firstRunTemperatures,
+      profileOffset: 483,
       stages: [{name: "Наблюдение", policy: "closed"}]
     }
   };
@@ -102,12 +104,14 @@
   }
 
   function baseline(sensor) {
-    const profile = scenarios[state.scenario].profile;
-    if (state.time <= profile[0][0]) return profile[0][sensor + 1];
+    const scenario = scenarios[state.scenario];
+    const profile = scenario.profile;
+    const profileTime = state.time + (scenario.profileOffset || 0);
+    if (profileTime <= profile[0][0]) return profile[0][sensor + 1];
     for (let i = 1; i < profile.length; i++) {
-      if (state.time <= profile[i][0]) {
+      if (profileTime <= profile[i][0]) {
         const a = profile[i - 1], b = profile[i];
-        const fraction = (state.time - a[0]) / (b[0] - a[0]);
+        const fraction = (profileTime - a[0]) / (b[0] - a[0]);
         return a[sensor + 1] + (b[sensor + 1] - a[sensor + 1]) * fraction;
       }
     }
