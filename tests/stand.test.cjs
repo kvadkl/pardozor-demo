@@ -49,12 +49,36 @@ const advanceTime = count => { for (let i = 0; i < count; i++) { now += 1000; ti
 
 assert.equal(snapshot().scenario, "first");
 element("run").trigger("click");
-advanceTime(11);
+advanceTime(3);
+assert.ok(snapshot().temperatures[1] > snapshot().temperatures[0] + 8, "first run: boiler heats before column vapor");
+advanceTime(4);
+assert.ok(snapshot().temperatures[1] > snapshot().temperatures[0] + 25, "first run: column remains cool near 65 C in boiler");
+advanceTime(4);
 assert.equal(snapshot().stage, 1, "65 °C in boiler should advance first run");
 element("next-stage").trigger("click");
 assert.equal(snapshot().stage, 2, "operator can start raw spirit stage");
 advanceTime(18);
 assert.equal(snapshot().stage, 3, "98 °C in boiler should finish first run");
+
+element("scenario").value = "liquid";
+element("scenario").trigger("change");
+element("run").trigger("click");
+advanceTime(3);
+assert.ok(snapshot().temperatures[1] > 70 && snapshot().temperatures[0] < 30, "liquid run: boiler warms before vapor appears");
+advanceTime(1);
+assert.ok(snapshot().temperatures[0] > 77 && snapshot().temperatures[0] < 78, "liquid run: vapor reaches measured plateau");
+
+element("scenario").value = "vapor";
+element("scenario").trigger("change");
+element("run").trigger("click");
+advanceTime(3);
+assert.ok(snapshot().temperatures[1] > 70 && snapshot().temperatures[0] < 30, "vapor control reuses liquid-run temperature trace");
+
+element("scenario").value = "observe";
+element("scenario").trigger("change");
+element("run").trigger("click");
+advanceTime(7);
+assert.ok(snapshot().temperatures[1] > snapshot().temperatures[0] + 25, "observation reuses first-run temperature trace");
 
 element("scenario").value = "liquid";
 element("scenario").trigger("change");
