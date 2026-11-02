@@ -22,12 +22,19 @@ const thumbs = ["self-reflux", "body", "alarm", "finish"].map(name => {
   button.closest = () => ({ querySelector: () => ({ textContent: name }) });
   return button;
 });
+const photos = ["controller-mounted", "display-closeup"].map(name => {
+  const button = mockElement();
+  button.dataset = { gallery: "photos", fullSrc: `assets/photos/${name}.jpg` };
+  button.querySelector = () => ({ src: `assets/photos/thumbs/${name}.jpg`, alt: name });
+  button.closest = () => ({ querySelector: () => ({ textContent: name }) });
+  return button;
+});
 ids["capture-dialog"].showModal = function () { this.open = true; };
 ids["capture-dialog"].close = function () { this.open = false; this.fire("close"); };
 const context = vm.createContext({
   document: {
     body: { classList: mockElement().classList },
-    querySelectorAll: () => thumbs,
+    querySelectorAll: () => [...thumbs, ...photos],
     getElementById: id => ids[id],
   },
 });
@@ -47,4 +54,11 @@ assert.equal(ids["capture-viewport"].classList.contains("is-zoomed"), false);
 ids["capture-close"].fire("click");
 assert.equal(ids["capture-dialog"].open, false);
 assert.equal(thumbs[0].focused, true);
+photos[0].fire("click");
+assert.equal(ids["capture-large"].src, "assets/photos/controller-mounted.jpg");
+assert.equal(ids["capture-original"].href, "assets/photos/controller-mounted.jpg");
+assert.equal(ids["capture-counter"].textContent, "Кадр 1 из 2");
+ids["capture-next"].fire("click");
+assert.equal(ids["capture-large"].src, "assets/photos/display-closeup.jpg");
+ids["capture-dialog"].close();
 console.log("Gallery: open, navigate, zoom and close — OK");

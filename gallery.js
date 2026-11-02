@@ -6,6 +6,7 @@ const largeImage = document.getElementById("capture-large");
 const viewport = document.getElementById("capture-viewport");
 const zoomButton = document.getElementById("capture-zoom");
 const originalLink = document.getElementById("capture-original");
+let activeButtons = galleryButtons;
 let currentIndex = 0;
 let opener = null;
 let touchStart = null;
@@ -18,22 +19,26 @@ function setZoom(enabled) {
 }
 
 function showImage(index) {
-  currentIndex = (index + galleryButtons.length) % galleryButtons.length;
-  const button = galleryButtons[currentIndex];
+  currentIndex = (index + activeButtons.length) % activeButtons.length;
+  const button = activeButtons[currentIndex];
   const thumbnail = button.querySelector("img");
   const caption = button.closest("figure").querySelector("figcaption").textContent.trim();
-  largeImage.src = thumbnail.src;
+  const fullSource = button.dataset?.fullSrc || thumbnail.src;
+  largeImage.src = fullSource;
   largeImage.alt = thumbnail.alt;
-  originalLink.href = thumbnail.src;
-  document.getElementById("capture-counter").textContent = `Кадр ${currentIndex + 1} из ${galleryButtons.length}`;
+  originalLink.href = fullSource;
+  document.getElementById("capture-counter").textContent = `Кадр ${currentIndex + 1} из ${activeButtons.length}`;
   document.getElementById("capture-caption").textContent = caption;
   setZoom(false);
 }
 
-galleryButtons.forEach((button, index) => {
+galleryButtons.forEach((button) => {
   button.addEventListener("click", () => {
     opener = button;
-    showImage(index);
+    const gallery = button.dataset?.gallery || "captures";
+    activeButtons = galleryButtons.filter((item) => (item.dataset?.gallery || "captures") === gallery);
+    dialog.setAttribute("aria-label", gallery === "photos" ? "Просмотр фотографий устройства" : "Просмотр кадров стендового теста");
+    showImage(activeButtons.indexOf(button));
     dialog.showModal();
     document.body.classList.add("lightbox-open");
   });
